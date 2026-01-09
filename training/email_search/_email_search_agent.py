@@ -5,7 +5,7 @@ import traceback
 from dataclasses import asdict
 from datetime import datetime, timedelta
 from typing import Any
-from _utils import (
+from _utils import (  # pylint: disable=E0611
     read_email_tool,
     search_emails_tool,
 )

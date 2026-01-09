@@ -10,10 +10,10 @@ try:
     )
 except ImportError:
     GymFrozenLakeEnv = object
-from _utils import (
+from _utils import (  # pylint: disable=E0611
     generate_random_map,
     get_goal_position,
-)  # pylint: disable=E0611
+)
 
 
 class FrozenLakeEnv(GymFrozenLakeEnv):

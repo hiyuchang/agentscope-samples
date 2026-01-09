@@ -3,7 +3,7 @@
 import os
 from typing import Dict
 from _email_search_agent import EmailSearchAgent
-from _utils import (
+from _utils import (  # pylint: disable=E0611
     AnswerModel,
     FinalRubric,
     QueryModel,
