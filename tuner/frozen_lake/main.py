@@ -8,23 +8,24 @@ from agentscope.message import Msg
 from agentscope.tuner import (
     tune,
     WorkflowOutput,
-    Dataset,
-    TunerChatModel,
-    Algorithm,
+    DatasetConfig,
+    TunerModelConfig,
+    AlgorithmConfig,
 )
+from agentscope.model import ChatModelBase
 
 
 async def run_frozen_lake(
     task: Dict,
-    model: TunerChatModel,
-    auxiliary_models: Dict[str, TunerChatModel],
+    model: ChatModelBase,
+    auxiliary_models: Dict[str, ChatModelBase],
 ) -> WorkflowOutput:
     """A workflow function using the FrozenLake agent to solve tasks.
 
     Args:
         task (Dict): The task to be solved, containing environment parameters
             like size, p, seed, is_slippery, etc.
-        model (TunerChatModel): The language model to use.
+        model (ChatModelBase): The language model to use.
 
     Returns:
         WorkflowOutput: The workflow output containing the reward, response and
@@ -120,18 +121,18 @@ async def run_frozen_lake(
 
 
 if __name__ == "__main__":
-    dataset = Dataset(
+    dataset = DatasetConfig(
         path="/path/to/frozenlake",
         split="train",
     )
-    tuner_model = TunerChatModel(
+    tuner_model = TunerModelConfig(
         model_path="Qwen/Qwen2.5-3B-Instruct",
         max_model_len=25600,
         max_tokens=2048,
         inference_engine_num=6,
         reasoning_parser=None,
     )
-    algorithm = Algorithm(
+    algorithm = AlgorithmConfig(
         algorithm_type="multi_step_grpo",
         group_size=16,
         batch_size=32,

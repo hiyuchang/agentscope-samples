@@ -89,8 +89,8 @@ The workflow function `run_frozen_lake` implements the agent-environment interac
 ```python
 async def run_frozen_lake(
     task: Dict,
-    model: TrinityChatModel,
-    auxiliary_models: Dict[str, TrinityChatModel],
+    model: ChatModelBase,
+    auxiliary_models: Dict[str, ChatModelBase],
 ) -> WorkflowOutput:
     # ...
 
@@ -159,14 +159,14 @@ See [frozenlake_env.py](./frozenlake_env.py) and [frozenlake_agent.py](./frozenl
 ### Step 4: Use `tune` to train the workflow
 
 ```python
-from agentscope.tuner import tune, Dataset
+from agentscope.tuner import tune, DatasetConfig
 
 if __name__ == "__main__":
     config_path = os.path.join(
         os.path.dirname(__file__),
         "config.yaml",
     )
-    dataset = Dataset(
+    dataset = DatasetConfig(
         path="/path/to/frozenlake_dataset",
         name="default",
         split="train",
@@ -212,19 +212,19 @@ Update the dataset path in `main.py` to point to your generated dataset director
 
 Key configuration can be identified in the code, including:
 
-**Algorithm Configuration** (`algorithm`):
+**Algorithm Configuration** (`AlgorithmConfig`):
 - `algorithm_type`: `multi_step_grpo` (Group Relative Policy Optimization for multi-step tasks)
 - `group_size`: Number of policy update iterations per batch (default: 16)
 - `batch_size`: Batch size for training (default: 32)
 - `learning_rate`: Learning rate (default: 1e-6)
 
-**Model Configuration** (`model`):
+**Model Configuration** (`TunerModelConfig`):
 - `model_path`: Path to the base model (e.g., `Qwen/Qwen2.5-3B-Instruct`)
 - `max_model_len`: Maximum model context length (default: 25600)
 - `max_tokens`: Maximum tokens for response generation (default: 2048)
 - `inference_engine_num`: Number of inference engines (default: 6)
 
-**Dataset Configuration** (`dataset`):
+**Dataset Configuration** (`DatasetConfig`):
 - `path`: Path to the dataset (default: `/path/to/frozenlake`)
 - `split`: Split of the dataset (default: `train`)
 

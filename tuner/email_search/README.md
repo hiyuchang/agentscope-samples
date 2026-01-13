@@ -73,8 +73,8 @@ The workflow function `run_email_search_agent` implements the agent-environment 
 ```python
 async def run_email_search_agent(
     task: Dict,
-    model: TunerChatModel,
-    auxiliary_models: Dict[str, TunerChatModel],
+    model: ChatModelBase,
+    auxiliary_models: Dict[str, ChatModelBase],
 ) -> WorkflowOutput:
     # Parse task and create agent
     agent = EmailSearchAgent(
@@ -103,7 +103,7 @@ The judge function `email_search_judge` implements reward calculation using LLM-
 async def email_search_judge(
     task: Dict,
     response: Msg,
-    auxiliary_models: Dict[str, TunerChatModel],
+    auxiliary_models: Dict[str, ChatModelBase],
 ) -> JudgeOutput:
     # Extract answer and sources from response
     answer = answer_and_sources.get("answer")
@@ -152,9 +152,9 @@ See [`main.py`](./main.py) and [`email_search_agent.py`](./email_search_agent.py
 
 Adjust the configuration file ([`config.yaml`](./config.yaml)) based on your hardware. Key configuration sections include:
 
-- **TunerChatModel**: Set `model_path` to your model checkpoint path
-- **Algorithm**: Configure RL algorithm parameters (e.g., `multi_step_grpo`, learning rate, policy loss function)
-- **Dataset**: The dataset path is specified in `main.py` when creating the `Dataset` object
+- **TunerModelConfig**: Set `model_path` to your model checkpoint path
+- **AlgorithmConfig**: Configure RL algorithm parameters (e.g., `multi_step_grpo`, learning rate, policy loss function)
+- **DatasetConfig**: The dataset path is specified in `main.py` when creating the `DatasetConfig` object
 - **Auxiliary Models**: Configure judge model settings for LLM-as-a-Judge
 
 For full configuration details, see [Trinity-RFT Configuration Guide](https://modelscope.github.io/Trinity-RFT/en/main/tutorial/trinity_configs.html).
