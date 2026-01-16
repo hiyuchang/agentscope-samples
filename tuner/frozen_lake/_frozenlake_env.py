@@ -89,7 +89,6 @@ class FrozenLakeEnv(GymFrozenLakeEnv):
         self.goal_position = goal_position
 
         super().__init__(
-            self,
             desc=random_map[:],
             is_slippery=self.is_slippery,
         )
@@ -283,13 +282,8 @@ class FrozenLakeEnv(GymFrozenLakeEnv):
         # Reinitialize parent class with new map
         try:
             import gymnasium as gym
-            from gymnasium.envs.toy_text.frozen_lake import (
-                FrozenLakeEnv as GymFrozenLakeEnvLocal,
-            )
-
-            # Initialize parent class with new parameters
-            GymFrozenLakeEnvLocal.__init__(  # noqa: C2801, PLC2801
-                self,
+            
+            super().__init__(
                 desc=random_map[:],
                 is_slippery=self.is_slippery,
             )
