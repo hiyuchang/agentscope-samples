@@ -32,7 +32,7 @@ The dataset contains email queries based on the [Enron Email dataset](https://hu
 python prepare_data.py
 ```
 
-If you want to choose a new database path, you can modify the `DEFAULT_DB_PATH` in [`prepare_data.py`]. Also, remember to set an environment variable `DEFAULT_EMAIL_DB_PATH` to point to the database path before moving to the next step:
+If you want to choose a new database path, you can modify the `DEFAULT_DB_PATH` in [`prepare_data.py`](./prepare_data.py). Also, remember to set an environment variable `DEFAULT_EMAIL_DB_PATH` to point to the database path before moving to the next step:
 
 ```bash
 export DEFAULT_EMAIL_DB_PATH=/path/to/enron_emails_dataset/data/enron_emails.db

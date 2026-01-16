@@ -222,7 +222,7 @@ Key configuration can be identified in the code, including:
 - `model_path`: Path to the base model (e.g., `Qwen/Qwen2.5-3B-Instruct`)
 - `max_model_len`: Maximum model context length (default: 25600)
 - `max_tokens`: Maximum tokens for response generation (default: 2048)
-- `inference_engine_num`: Number of inference engines (default: 6)
+- `inference_engine_num`: Number of inference engines (default: 6, using 6 GPUs for inference)
 
 **Dataset Configuration** (`DatasetConfig`):
 - `path`: Path to the dataset (default: `/path/to/frozenlake`)
