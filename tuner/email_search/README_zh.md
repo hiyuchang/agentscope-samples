@@ -189,9 +189,13 @@ async def email_search_judge(
 - **训练奖励**：训练样本上的平均奖励随着智能体学习更好的策略而增加
 - **Rollout 准确度**：Rollout 样本上的平均准确度随着智能体学习更好的策略而增加
 
-![Training Rewards](./critic_reward_mean.png)
+<div align="center">
+  <img src="./critic_reward_mean.png" alt="Training Rewards" width="90%"/>
+</div>
 
-![Rollout Accuracy](./rollout_accuracy_mean.png)
+<div align="center">
+  <img src="./rollout_accuracy_mean.png" alt="Rollout Accuracy" width="90%"/>
+</div>
 
 
 ### 具体示例

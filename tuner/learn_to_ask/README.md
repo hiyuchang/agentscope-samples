@@ -30,7 +30,7 @@ Key files:
 ## Dataset Preparation
 
 > [!NOTE]
-> In this example, we use an open-source dataset directly for training. In practice, however, you would typically start by collecting interaction logs between your deployed agent and users. After filtering these raw logs to curate a high-quality dataset, you can follow the same pipeline to enhance your agent’s proactive capabilities using AgentTune. Happy tuning!
+> In this example, we use an open-source dataset directly for training. In practice, however, you would typically start by collecting interaction logs between your deployed agent and users. After filtering these raw logs to curate a high-quality dataset, you can follow the same pipeline to enhance your agent’s proactive capabilities using AgentScope-Tuner. Happy tuning!
 
 ### 1.1 Download the Dataset
 Download the **[RealMedConv](https://huggingface.co/datasets/datajuicer/RealMedConv)** dataset (in `.jsonl` format).
@@ -183,50 +183,33 @@ async def learn2ask_judge(
     response: Msg,
     auxiliary_models: Dict[str, OpenAIChatModel],
 ) -> JudgeOutput:
-    assert (
-        len(auxiliary_models) == 1
-    ), "Please provide only one `auxiliary_models` for `learn_to_ask`."
-
     response_text = response.get_text_content()
-    action_truth = (
-        task["decision_truth"] if "decision_truth" in task else "continue"
-    )
-
+    action_truth = task.get("decision_truth", "continue")
     action_response = "stop" if "<stop />" in response_text else "continue"
-    if action_truth == action_response:
-        action_score = 1.0
-        if action_truth == "continue":
-            score_dict = await llm_reward(
-                task=task,
-                response=response_text,
-                auxiliary_models=auxiliary_models,  # LLM-as-a-Judge
-            )
-            if score_dict != {}:
-                format_score = float(score_dict.get("format_score", 0.0))
-                content_score = float(score_dict.get("content_score", 0.0))
-            else:
-                format_score, content_score = 0.0, 0.0
-        else:
-            content_score = 1.0
-            format_score = 1.0 if response_text == "<stop />" else 0.0
+    
+    # Calculate action accuracy score
+    action_score = 1.0 if action_truth == action_response else 0.0
+    
+    # Calculate format and content scores
+    if action_score == 1.0 and action_truth == "continue":
+        # Use LLM-as-a-Judge to evaluate question quality
+        score_dict = await llm_reward(task, response_text, auxiliary_models)
+        format_score = float(score_dict.get("format_score", 0.0))
+        content_score = float(score_dict.get("content_score", 0.0))
+    elif action_score == 1.0:  # stop action
+        content_score, format_score = 1.0, (1.0 if response_text == "<stop />" else 0.0)
     else:
-        action_score, format_score, content_score = 0.0, 0.0, 0.0
-
-    if TRAIN_MODE == "Ra+Rs":  # the default setting
-        final_reward = (
-            action_score * (1 + 2 * content_score) + format_score
-            if FUSION_MODE != "sum"
-            else action_score + content_score + format_score
-        )
-    elif TRAIN_MODE == "Ra":  # for Ra only (without Rs)
+        format_score = content_score = 0.0
+    
+    # Combine final reward based on training mode
+    if TRAIN_MODE == "Ra+Rs":  # Default: action + symptom rewards
+        final_reward = action_score * (1 + 2 * content_score) + format_score
+    elif TRAIN_MODE == "Ra":  # Action reward only
         final_reward = 2 * content_score + format_score
-    else:  # for Rs only (without Ra)
+    else:  # Symptom reward only
         final_reward = action_score * 3 + format_score
-
-    return JudgeOutput(
-        reward=final_reward,
-        metrics={"reward": final_reward},
-    )
+    
+    return JudgeOutput(reward=final_reward, metrics={"reward": final_reward})
 ```
 
 This reward function considers:
@@ -322,9 +305,9 @@ python tuner/learn_to_ask/data_prepare/3_rollout_then_evaluate.py \
 We compared three approaches:
 - **Base model**: `Qwen2.5-7B-Instruct` (no fine-tuning)
 - **Trinity**: Direct response generation
-- **As-tune (Learn2Ask)**: Uses a ReAct agent for proactive questioning
+- **AgentScope-Tuner (Learn2Ask)**: Uses a ReAct agent for proactive questioning
 
-| Metric                               | Base Model | Trinity | As-tune (Learn2Ask) |
+| Metric                               | Base Model | Trinity | AgentScope-Tuner (Learn2Ask) |
 |--------------------------------------|-----------:|--------:|--------------------:|
 | Avg. continue content                |      0.436 |   0.496 |               0.509 |
 | Win rate (continue content)          |      0.122 |   0.246 |               0.224 |
@@ -334,9 +317,11 @@ We compared three approaches:
 | **Response format quality**          |      0.376 |   0.713 |               0.882 |
 | **Total reward**                     |      1.281 |   3.078 |               3.237 |
 
-![Training Curves](./learn2ask.png)
+<div align="center">
+  <img src="./learn2ask.png" alt="Training Curves" width="90%"/>
+</div>
 
-> ✅ **Key insight**: Learn2Ask (As-tune) achieves the highest overall performance by teaching the model **when and what to ask**—making it truly proactive.
+> ✅ **Key insight**: Learn2Ask (AgentScope-Tuner) achieves the highest overall performance by teaching the model **when and what to ask**—making it truly proactive.
 
 ### Concrete Example
 

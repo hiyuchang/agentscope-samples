@@ -255,7 +255,9 @@ The training will start and you can monitor the progress through the logs. Check
 
 The reward curve during training shows the agent's learning progress:
 
-![reward](./critic_rewards_mean.png)
+<div align="center">
+  <img src="./critic_rewards_mean.png" alt="reward" width="90%"/>
+</div>
 
 The training reward typically increases over epochs as the agent learns to navigate the frozen lake more effectively.
 

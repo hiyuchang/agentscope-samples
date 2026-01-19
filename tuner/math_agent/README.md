@@ -372,4 +372,6 @@ After implementing the workflow function, follow these steps to run the training
 
     An example reward curve is shown below:
 
-    ![reward_curve](./reward_curve.png)
+    <div align="center">
+      <img src="./reward_curve.png" alt="reward_curve" width="90%"/>
+    </div>

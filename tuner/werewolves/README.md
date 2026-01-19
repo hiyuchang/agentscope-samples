@@ -1,10 +1,10 @@
 # Training Werewolf Game with RL using AgentScope-Tuner
 
-This project demonstrates training werewolf game agents using Reinforcement Learning (RL) with the AgentScope tuner framework (AS-Tune). We employ the multi-step Group Relative Policy Optimization (GRPO) algorithm to train werewolf players to develop sophisticated strategies and improve their win rate from ~50% to ~85%.
+This project demonstrates training werewolf game agents using Reinforcement Learning (RL) with AgentScope-Tuner. We employ the Group Relative Policy Optimization (GRPO) algorithm to train werewolf players to develop sophisticated strategies and improve their win rate from ~50% to ~85%.
 
 ## Overview
 
-The werewolf game is a complex social deduction game that requires strategic thinking, deception, and multi-agent collaboration. In this project, we train AI agents to play as werewolves in a 7-player game setting, where they must eliminate all villagers while hiding their identity. Through reinforcement learning, the trained werewolf agents learn to:
+The werewolf game is a social deduction game that requires strategic thinking, deception, and multi-agent collaboration. In this project, we train AI agents to play as werewolves in a 7-player game setting, where they must eliminate all villagers while hiding their identity. Through reinforcement learning, the trained werewolf agents learn to:
 
 - Avoid revealing their identity in public discussions
 - Coordinate with teammates effectively
@@ -16,9 +16,9 @@ The werewolf game is a complex social deduction game that requires strategic thi
 ### Training Objective
 
 The goal is to train **werewolf players** to maximize their team's win rate against other roles (villagers, seer, and witch). The reward function is defined by rule:
-- **Reward = +1.0** if werewolves win (all villagers eliminated)
-- **Reward = 0.0** if villagers win (all werewolves eliminated)
-- **Reward = -0.1** for game execution errors (penalty to discourage invalid behaviors)
+- **Reward = +1.0**: if werewolves win (all villagers eliminated)
+- **Reward = 0.0**: if villagers win (all werewolves eliminated)
+- **Reward = -0.1**: for game execution errors (penalty to discourage invalid behaviors)
 
 ### Game Configuration
 
@@ -46,7 +46,7 @@ We also make slight modification to the prompt, and ask the players to reasoning
 ### Algorithm
 
 **Multi-Step GRPO (Group Relative Policy Optimization)**
-- Group size: 32 rollouts per training batch
+- Group size: 32 rollouts per task
 - Batch size: 24
 - Learning rate: 1e-6
 - Advantage normalization by episode length
@@ -119,15 +119,15 @@ async def run_werewolves_workflow(task, model, auxiliary_models):
 Each game consists of alternating night and day phases:
 
 **Night Phase:**
-1. **Werewolves' Turn**: Discuss privately and vote to kill a player
-2. **Witch's Turn**: Decide whether to use healing/poison potions
-3. **Seer's Turn**: Check one player's identity
+1. Werewolves' Turn: Discuss privately and vote to kill a player
+2. Witch's Turn: Decide whether to use healing/poison potions
+3. Seer's Turn: Check one player's identity
 
 **Day Phase:**
-1. **Announcement**: Moderator announces who died during the night
-2. **Discussion**: All alive players discuss with reasoning/statement separation
-3. **Voting**: All players vote to eliminate one suspected werewolf
-4. **Last Words**: Eliminated player gives final statement
+1. Announcement: Moderator announces who died during the night
+2. Discussion: All alive players discuss with reasoning/statement separation
+3. Voting: All players vote to eliminate one suspected werewolf
+4. Last Words: Eliminated player gives final statement
 
 The game continues until:
 - All werewolves are eliminated (villagers win), or
@@ -164,16 +164,16 @@ export TRINITY_CHECKPOINT_ROOT_DIR="./checkpoints"
 
 The project uses a hybrid configuration approach:
 
-1. **High-level parameters** in `main.py`:
+1. Basic parameters in `main.py`:
    - Model paths
    - Dataset configuration
    - Algorithm parameters (group_size, batch_size, learning_rate)
 
-2. **Detailed infrastructure settings** in `config.yaml`:
+2. Detailed settings in `config.yaml`:
    - Cluster configuration (nodes, GPUs)
    - Explorer settings (rollout engines, timeouts)
    - Trainer settings (gradient clipping, batch sizes)
-   - Monitor configuration (WandB integration)
+   - Monitor configuration (WandB, TensorBoard or MLFlow)
 
 Key parameters to adjust:
 
@@ -190,8 +190,8 @@ dataset = DatasetConfig(
 
 algorithm = AlgorithmConfig(
     algorithm_type="multi_step_grpo",
-    group_size=32,    # Rollouts per batch
-    batch_size=24,    # Training batches per step
+    group_size=32,    # Rollouts per task
+    batch_size=24,    # Batch size per step
     learning_rate=1e-6,
     save_interval_steps=100,
     eval_interval_steps=100,
@@ -252,7 +252,9 @@ Training on the 7-player werewolf game for 400 steps demonstrates significant im
 
 **Reward Curve:**
 
-![Rollout Reward Curve](./rollout_reward_curve.png)
+<div align="center">
+  <img src="./rollout_reward_curve.png" alt="Rollout Reward Curve" width="90%"/>
+</div>
 
 As shown in the reward curve above, the werewolf win rate steadily increases during training:
 - **Steps 0-50**: Win rate fluctuates around 50-60% as the model explores strategies
@@ -343,7 +345,9 @@ We trained `Qwen3-4B-Instruct` as good guys against `Qwen3-30B-A3B-Instruct` wer
 
 **Training Curve:**
 
-![Good Guy Training Curve](./rollout_reward_curve_goodguy.png)
+<div align="center">
+  <img src="./rollout_reward_curve_goodguy.png" alt="Good Guy Training Curve" width="90%"/>
+</div>
 
 The results show that even a smaller 4B model can learn effective strategies to counter stronger 30B werewolf opponents through RL training, demonstrating the potential of this approach for training cooperative multi-agent behaviors.
 
@@ -359,6 +363,6 @@ After training, the good guy models exhibit advanced reasoning patterns:
 
 ## Conclusion
 
-This example demonstrates the power of reinforcement learning for training multi-agent systems in complex social deduction games. Through AS-Tune's multi-step GRPO algorithm, we successfully trained agents that develop sophisticated strategies—from werewolves learning "deep cover" tactics to good guys mastering coordinated reasoning and information management.
+This example demonstrates the power of reinforcement learning for training multi-agent systems in complex social deduction games. Through AgentScope-Tuner's GRPO algorithm, we successfully trained agents that develop sophisticated strategies—from werewolves learning "deep cover" tactics to good guys mastering coordinated reasoning and information management.
 
 **Ready to try it yourself?** Feel free to start training your own werewolf game agents. Experiment with different model sizes, training targets (werewolf vs. good guy), and hyperparameters to discover new emergent strategies!

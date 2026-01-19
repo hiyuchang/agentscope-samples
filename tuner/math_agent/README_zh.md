@@ -365,4 +365,6 @@ if __name__ == "__main__":
 
     奖励曲线示例：
 
-    ![reward_curve](./reward_curve.png)
+    <div align="center">
+      <img src="./reward_curve.png" alt="reward_curve" width="90%"/>
+    </div>

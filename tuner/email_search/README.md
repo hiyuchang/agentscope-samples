@@ -189,9 +189,13 @@ The training results show improvements in agent performance over training iterat
 - **Train reward**: The average reward on training samples increases as the agent learns better strategies
 - **Rollout accuracy**: The average accuracy on rollout samples increases as the agent learns better strategies
 
-![Training Rewards](./critic_reward_mean.png)
+<div align="center">
+  <img src="./critic_reward_mean.png" alt="Training Rewards" width="90%"/>
+</div>
 
-![Rollout Accuracy](./rollout_accuracy_mean.png)
+<div align="center">
+  <img src="./rollout_accuracy_mean.png" alt="Rollout Accuracy" width="90%"/>
+</div>
 
 
 ### Concrete Example

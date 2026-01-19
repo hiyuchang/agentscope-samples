@@ -234,7 +234,9 @@ python main.py
 
 训练过程中的奖励曲线显示智能体的学习进度：
 
-![reward](./critic_rewards_mean.png)
+<div align="center">
+  <img src="./critic_rewards_mean.png" alt="reward" width="90%"/>
+</div>
 
 训练奖励通常随着智能体学习更有效地导航冰湖而随训练轮次增加。
 
