@@ -282,7 +282,7 @@ class FrozenLakeEnv(GymFrozenLakeEnv):
         # Reinitialize parent class with new map
         try:
             import gymnasium as gym
-            
+
             super().__init__(
                 desc=random_map[:],
                 is_slippery=self.is_slippery,
