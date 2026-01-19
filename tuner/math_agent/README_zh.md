@@ -245,10 +245,10 @@ if __name__ == "__main__":
 这里用 `DatasetConfig` 加载训练数据集，`TunerModelConfig` 初始化可训练模型，`AlgorithmConfig` 指定 RL 算法及其超参数。
 
 > 注意：
-> `tune` 函数基于 [Trinity-RFT](https://github.com/modelscope/Trinity-RFT) 实现，会将输入参数自动转为 YAML 配置。
+> `tune` 函数基于 [Trinity-RFT](https://github.com/agentscope-ai/Trinity-RFT) 实现，会将输入参数自动转为 YAML 配置。
 > 高级用户可忽略 `model`、`train_dataset`、`algorithm` 参数，直接用 `config_path` 指定 YAML 配置文件（见 [config.yaml](./config.yaml) 示例）。
 > 推荐用配置文件方式实现更细粒度的训练控制，充分利用 Trinity-RFT 的高级特性。
-> 详细配置说明见 Trinity-RFT [配置指南](https://modelscope.github.io/Trinity-RFT/zh/main/tutorial/trinity_configs.html)。
+> 详细配置说明见 Trinity-RFT [配置指南](https://agentscope-ai.github.io/Trinity-RFT/zh/main/tutorial/trinity_configs.html)。
 
 训练产生的 checkpoint 和日志信息会自动保存在当前目录下的 `checkpoints/AgentScope` 中，每次运行会新建带时间戳的子目录。
 TensorBoard 日志在 checkpoint 目录下的 `monitor/tensorboard` 中。
@@ -335,7 +335,7 @@ if __name__ == "__main__":
 
     - 至少 2 块 NVIDIA GPU，CUDA 12.8 或更高。
     - 根据硬件调整配置文件（[config.yaml](./config.yaml)）。
-    - 按 Trinity-RFT [安装指南](https://modelscope.github.io/Trinity-RFT/zh/main/tutorial/trinity_installation.html) 从源码安装最新版。
+    - 按 Trinity-RFT [安装指南](https://agentscope-ai.github.io/Trinity-RFT/zh/main/tutorial/trinity_installation.html) 从源码安装最新版。
     - 下载 GSM8K 数据集和 Qwen/Qwen3-0.6B 模型权重（示例）：
 
       ```bash

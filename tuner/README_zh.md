@@ -21,6 +21,6 @@ AgentScope Tuner 需要：
 - `agentscope>=1.0.12`
 - `trinity-rft>=0.4.1`
 
-AgentScope Tuner 基于 [Trinity-RFT](https://github.com/modelscope/Trinity-RFT) 构建。
-请参考 [Trinity-RFT 安装指南](https://modelscope.github.io/Trinity-RFT/zh/main/tutorial/trinity_installation.html)
+AgentScope Tuner 基于 [Trinity-RFT](https://github.com/agentscope-ai/Trinity-RFT) 构建。
+请参考 [Trinity-RFT 安装指南](https://agentscope-ai.github.io/Trinity-RFT/zh/main/tutorial/trinity_installation.html)
 获取详细的安装方法。

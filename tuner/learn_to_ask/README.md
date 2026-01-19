@@ -313,7 +313,7 @@ python tuner/learn_to_ask/data_prepare/3_rollout_then_evaluate.py \
 ```
 
 > ⚠️ **Note**: Your trained model must be converted to **Hugging Face format** first.
-> See: [Converting FSDP Checkpoints Guide](https://modelscope.github.io/Trinity-RFT/en/main/tutorial/faq.html)
+> See: [Converting FSDP Checkpoints Guide](https://agentscope-ai.github.io/Trinity-RFT/en/main/tutorial/faq.html)
 
 ---
 

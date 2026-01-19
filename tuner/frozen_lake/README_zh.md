@@ -2,7 +2,7 @@
 
 ## 摘要
 
-本示例展示如何使用 AgentScope-Tuner 配合 [Trinity-RFT](https://github.com/modelscope/Trinity-RFT) 对 [Frozen Lake](https://gymnasium.farama.org/environments/toy_text/frozen_lake/) 任务进行强化微调。智能体需要在冰湖网格中从起点走到终点，避开坑洞，并在有限步数内完成任务。
+本示例展示如何使用 AgentScope-Tuner 配合 [Trinity-RFT](https://github.com/agentscope-ai/Trinity-RFT) 对 [Frozen Lake](https://gymnasium.farama.org/environments/toy_text/frozen_lake/) 任务进行强化微调。智能体需要在冰湖网格中从起点走到终点，避开坑洞，并在有限步数内完成任务。
 
 ## 任务设定
 
@@ -167,7 +167,7 @@ if __name__ == "__main__":
     )
 ```
 
-训练配置请参考 [config.yaml](./config.yaml)。完整配置详情请参考 [Trinity-RFT 配置指南](https://modelscope.github.io/Trinity-RFT/en/main/tutorial/trinity_configs.html)。
+训练配置请参考 [config.yaml](./config.yaml)。完整配置详情请参考 [Trinity-RFT 配置指南](https://agentscope-ai.github.io/Trinity-RFT/en/main/tutorial/trinity_configs.html)。
 
 ---
 
@@ -175,7 +175,7 @@ if __name__ == "__main__":
 
 ### 依赖
 - 至少 2 张 NVIDIA GPU，CUDA 版本 ≥ 12.8
-- 按 [Trinity-RFT 安装指南](https://modelscope.github.io/Trinity-RFT/en/main/tutorial/trinity_installation.html) 从源码安装
+- 按 [Trinity-RFT 安装指南](https://agentscope-ai.github.io/Trinity-RFT/en/main/tutorial/trinity_installation.html) 从源码安装
 - 安装 gymnasium 冰湖环境：
   ```bash
   pip install gymnasium[toy_text]

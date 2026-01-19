@@ -22,6 +22,6 @@ AgentScope Tuner requires:
 - `agentscope>=1.0.12`
 - `trinity-rft>=0.4.1`
 
-AgentScope Tuner is built on top of [Trinity-RFT](https://github.com/modelscope/Trinity-RFT).
-Please refer to the [Trinity-RFT installation guide](https://modelscope.github.io/Trinity-RFT/en/main/tutorial/trinity_installation.html)
+AgentScope Tuner is built on top of [Trinity-RFT](https://github.com/agentscope-ai/Trinity-RFT).
+Please refer to the [Trinity-RFT installation guide](https://agentscope-ai.github.io/Trinity-RFT/en/main/tutorial/trinity_installation.html)
 for detailed instructions on how to set up the environment.

@@ -1,6 +1,6 @@
 # 使用 AgentScope-Tuner 训练邮件搜索智能体
 
-本示例展示如何使用 AgentScope-Tuner 对邮件搜索任务（灵感来自 [ART](https://openpipe.ai/blog/art-e-mail-agent)）进行强化微调，其 RFT 功能由 [Trinity-RFT](https://github.com/modelscope/Trinity-RFT) 提供支持。
+本示例展示如何使用 AgentScope-Tuner 对邮件搜索任务（灵感来自 [ART](https://openpipe.ai/blog/art-e-mail-agent)）进行强化微调，其 RFT 功能由 [Trinity-RFT](https://github.com/agentscope-ai/Trinity-RFT) 提供支持。
 
 ## 任务设定
 
@@ -140,7 +140,7 @@ async def email_search_judge(
 
 - 至少 4 张 NVIDIA GPU，CUDA 版本 ≥ 12.8
   * 注意：对于 30B 评判模型，需要使用至少 4080 显存的 GPU；你也可以通过使用 `tensor_parallel_size > 1` 在多张 GPU 上运行模型以减少显存使用（默认情况下，`tensor_parallel_size=2`）。
-- 按照 Trinity-RFT [安装指南](https://modelscope.github.io/Trinity-RFT/en/main/tutorial/trinity_installation.html) 从源码安装最新版本
+- 按照 Trinity-RFT [安装指南](https://agentscope-ai.github.io/Trinity-RFT/zh/main/tutorial/trinity_installation.html) 从源码安装最新版本
 - 下载模型检查点（示例）：
 
   ```bash
@@ -157,7 +157,7 @@ async def email_search_judge(
 - **DatasetConfig**：数据集路径在创建 `DatasetConfig` 对象时在 `main.py` 中指定
 - **辅助模型**：为 LLM-as-a-Judge 配置评判模型设置
 
-完整配置详情请参考 [Trinity-RFT 配置指南](https://modelscope.github.io/Trinity-RFT/en/main/tutorial/trinity_configs.html)。
+完整配置详情请参考 [Trinity-RFT 配置指南](https://agentscope-ai.github.io/Trinity-RFT/zh/main/tutorial/trinity_configs.html)。
 
 ### 启动命令
 

@@ -1,6 +1,6 @@
 # Training Email Search Agent with RL using AgentScope-Tuner
 
-This example demonstrates how to implement reinforcement fine-tuning for the Email Search task (inspired by [ART](https://openpipe.ai/blog/art-e-mail-agent)) using AgentScope-Tuner, whose RFT functionality is backed by [Trinity-RFT](https://github.com/modelscope/Trinity-RFT).
+This example demonstrates how to implement reinforcement fine-tuning for the Email Search task (inspired by [ART](https://openpipe.ai/blog/art-e-mail-agent)) using AgentScope-Tuner, whose RFT functionality is backed by [Trinity-RFT](https://github.com/agentscope-ai/Trinity-RFT).
 
 ## Task Setting
 
@@ -140,7 +140,7 @@ See [`main.py`](./main.py) and [`email_search_agent.py`](./email_search_agent.py
 
 - At least 4 NVIDIA GPUs with CUDA 12.8 or newer
   * Note: For the 30B Judge model, you need to use a GPU with at least 4080 memory; you can also run the model on multiple GPUs by using `tensor_parallel_size > 1` to reduce the memory usage (by default, `tensor_parallel_size=2`).
-- Follow the Trinity-RFT [installation guide](https://modelscope.github.io/Trinity-RFT/en/main/tutorial/trinity_installation.html) to install the latest version from source code
+- Follow the Trinity-RFT [installation guide](https://agentscope-ai.github.io/Trinity-RFT/en/main/tutorial/trinity_installation.html) to install the latest version from source code
 - Download the model checkpoint (example):
 
   ```bash
@@ -157,7 +157,7 @@ Adjust the configuration file ([`config.yaml`](./config.yaml)) based on your har
 - **DatasetConfig**: The dataset path is specified in `main.py` when creating the `DatasetConfig` object
 - **Auxiliary Models**: Configure judge model settings for LLM-as-a-Judge
 
-For full configuration details, see [Trinity-RFT Configuration Guide](https://modelscope.github.io/Trinity-RFT/en/main/tutorial/trinity_configs.html).
+For full configuration details, see [Trinity-RFT Configuration Guide](https://agentscope-ai.github.io/Trinity-RFT/en/main/tutorial/trinity_configs.html).
 
 ### Start-Up Commands
 
