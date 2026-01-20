@@ -19,7 +19,9 @@ To enable difficulty-based sampling, the training data must include difficulty f
 
 ## Code Implementation
 
-This example adopts `run_react_agent` and `gsm8k_judge` from the [math-agent example](https://github.com/agentscope-ai/agentscope-samples/blob/main/tuner/math_agent/main.py) as `workflow_func` and `judge_func`, demonstrating that training strategies can be applied without altering core agent logic.
+### Agent Workflow & Judge Function
+
+This example follows the foundational [math-agent example](https://github.com/agentscope-ai/agentscope-samples/blob/main/tuner/math_agent/main.py), adopting its `run_react_agent` and `gsm8k_judge` as the `workflow_func` and `judge_func`, respectively. This highlights a key benefit: you can apply training strategies without altering your core agent logic.
 
 ### Design of Data-Centric Features
 
