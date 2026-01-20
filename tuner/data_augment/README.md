@@ -10,7 +10,7 @@ Training can be inefficient if tasks are too easy or too hard. This example demo
 
 ## Dataset Preparation
 
-To enable difficulty-based sampling, the training data must include difficulty features (e.g., pass rates from LLMs). 
+To enable difficulty-based sampling, the training data must include difficulty features (e.g., pass rates from LLMs).
 
 1.  **Base Dataset**: You can use any standard math problem dataset. A good example is the math data in [LLM360/guru-RL-92k](https://huggingface.co/datasets/LLM360/guru-RL-92k), which comes pre-annotated with pass rates from different LLMs, serving as direct difficulty features.
 2.  **Build Your Own Features**: If you use your own dataset, you can generate these features by pre-running several models of varying capabilities and recording their pass rates. This can be done within the [**Trinity-RFT**](https://github.com/agentscope-ai/Trinity-RFT/pull/440) framework.

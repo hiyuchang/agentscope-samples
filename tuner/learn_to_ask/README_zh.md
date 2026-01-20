@@ -186,10 +186,10 @@ async def learn2ask_judge(
     response_text = response.get_text_content()
     action_truth = task.get("decision_truth", "continue")
     action_response = "stop" if "<stop />" in response_text else "continue"
-    
+
     # 计算动作准确性分数
     action_score = 1.0 if action_truth == action_response else 0.0
-    
+
     # 计算格式和内容分数
     if action_score == 1.0 and action_truth == "continue":
         # 使用 LLM-as-a-Judge 评估问题质量
@@ -200,7 +200,7 @@ async def learn2ask_judge(
         content_score, format_score = 1.0, (1.0 if response_text == "<stop />" else 0.0)
     else:
         format_score = content_score = 0.0
-    
+
     # 根据训练模式组合最终奖励
     if TRAIN_MODE == "Ra+Rs":  # 默认：动作 + 症状奖励
         final_reward = action_score * (1 + 2 * content_score) + format_score
@@ -208,7 +208,7 @@ async def learn2ask_judge(
         final_reward = 2 * content_score + format_score
     else:  # 仅症状奖励
         final_reward = action_score * 3 + format_score
-    
+
     return JudgeOutput(reward=final_reward, metrics={"reward": final_reward})
 ```
 
