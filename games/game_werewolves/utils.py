@@ -6,9 +6,9 @@ from typing import Any
 import numpy as np
 from agentscope.agent import AgentBase, ReActAgent
 from agentscope.message import Msg
-from prompt import (
+from prompt import (  # pylint: disable=no-name-in-module
     EnglishPrompts as Prompts,
-)  # pylint: disable=no-name-in-module
+)
 
 MAX_GAME_ROUND = 30
 MAX_DISCUSSION_ROUND = 3
